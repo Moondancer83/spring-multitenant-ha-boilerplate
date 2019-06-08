@@ -1,0 +1,26 @@
+---
+server:
+  servlet:
+    session:
+      timeout: 1800  # 30 minutes
+spring:
+  application:
+    name: 'Multi-Tenant Boilerplate'
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/multi?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update # TODO default db should not contain any business logic, tenant DB's are not initialized automatically => remove this
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

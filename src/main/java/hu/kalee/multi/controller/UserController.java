@@ -23,6 +23,8 @@ public class UserController {
 
         if (principal instanceof User) {
             userName = ((User) principal).getUsername();
+        } else if (principal instanceof String) {
+            userName = (String) principal;
         } else {
             userName = ((Map<String, String>) principal).get("username");
         }
