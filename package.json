@@ -1,0 +1,20 @@
+{
+  "name": "multi",
+  "version": "1.0.0",
+  "description": "based on Spring Boot 2",
+  "main": "index.js",
+  "scripts": {
+    "tenant_1": "lt -p 8080 -s terrible-swan-17",
+    "tenant_2": "lt -p 8080 -s terrible-swan-23"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moondancer83/spring-multitenant-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moondancer83/spring-multitenant-boilerplate/issues"
+  },
+  "homepage": "https://github.com/Moondancer83/spring-multitenant-boilerplate#readme"
+}
