@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.kalee.multi.tenant.TenantContext;
+import hu.kalee.multitenant.tenant.TenantContext;
 
 @RestController
 @RequestMapping("/api/user")

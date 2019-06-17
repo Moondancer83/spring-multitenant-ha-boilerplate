@@ -3,6 +3,7 @@ server:
   servlet:
     session:
       timeout: 1800  # 30 minutes
+  port: 9000
 spring:
   application:
     name: 'Multi-Tenant Boilerplate'
@@ -24,3 +25,6 @@ management:
     web:
       exposure:
         include: '*'
+
+multitenant:
+  tenant-id-source: servername

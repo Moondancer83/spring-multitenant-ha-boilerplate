@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.kalee.multi.tenant.TenantContext;
+import hu.kalee.multitenant.tenant.TenantContext;
 
 @Entity
 public class Book {

@@ -1,4 +1,4 @@
-package hu.kalee.multi.tenant;
+package hu.kalee.multitenant.datasource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,15 +13,18 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class MultiTenantDataSourceConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(MultiTenantDataSourceConfiguration.class);
+
+    @Value("${multitenant.tenant-id-source}")
+    private String tenantIdSource;
 
     @Autowired
     private DataSourceProperties properties;
@@ -33,8 +36,14 @@ public class MultiTenantDataSourceConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
+        LOG.info("multitenant.tenant-id-source: {}", tenantIdSource);
+
         File[] files = Paths.get(ClassLoader.getSystemResource("tenants").getPath()).toFile().listFiles();
         Map<Object,Object> resolvedDataSources = new HashMap<>();
+
+        if (files.length == 0) {
+            LOG.warn("No configuration for multiple tenants.");
+        }
 
         for(File propertyFile : files) {
             Properties tenantProperties = new Properties();

@@ -1,4 +1,4 @@
-package hu.kalee.multi.tenant;
+package hu.kalee.multitenant.tenant;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
