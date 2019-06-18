@@ -34,12 +34,7 @@ public class Privilege {
         this.name = name;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "privileges")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "privileges")
     public Collection<UserEntity> getUsers() {
         return users;
     }

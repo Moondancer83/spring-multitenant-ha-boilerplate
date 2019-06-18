@@ -20,9 +20,7 @@ import hu.kalee.multitenant.tenant.TenantContext;
 import hu.kalee.multitenant.tenant.extractor.TenantExtractor;
 
 @Component("tenantFilter")
-@ConditionalOnProperty(
-        name = "multitenant.tenant-id-source",
-        havingValue = "servername")
+@ConditionalOnProperty(name = "multitenant.tenant-id-source", havingValue = "servername")
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ServerNameTenantFilter extends OncePerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(ServerNameTenantFilter.class);

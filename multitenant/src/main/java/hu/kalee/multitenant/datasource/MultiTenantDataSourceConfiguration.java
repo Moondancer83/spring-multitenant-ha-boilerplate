@@ -18,7 +18,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 public class MultiTenantDataSourceConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(MultiTenantDataSourceConfiguration.class);
@@ -31,6 +30,7 @@ public class MultiTenantDataSourceConfiguration {
 
     /**
      * Defines the data source for the application
+     *
      * @return datasource
      */
     @Bean
@@ -39,13 +39,13 @@ public class MultiTenantDataSourceConfiguration {
         LOG.info("multitenant.tenant-id-source: {}", tenantIdSource);
 
         File[] files = Paths.get(ClassLoader.getSystemResource("tenants").getPath()).toFile().listFiles();
-        Map<Object,Object> resolvedDataSources = new HashMap<>();
+        Map<Object, Object> resolvedDataSources = new HashMap<>();
 
         if (files.length == 0) {
             LOG.warn("No configuration for multiple tenants.");
         }
 
-        for(File propertyFile : files) {
+        for (File propertyFile : files) {
             Properties tenantProperties = new Properties();
             DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create(this.getClass().getClassLoader());
 
@@ -56,12 +56,9 @@ public class MultiTenantDataSourceConfiguration {
 
                 // Assumption: The tenant database uses the same driver class
                 // as the default database that you configure.
-                dataSourceBuilder.driverClassName(properties.getDriverClassName())
-                        .url(tenantProperties.getProperty("datasource.url"))
-                        .username(tenantProperties.getProperty("datasource.username"))
-                        .password(tenantProperties.getProperty("datasource.password"));
+                dataSourceBuilder.driverClassName(properties.getDriverClassName()).url(tenantProperties.getProperty("datasource.url")).username(tenantProperties.getProperty("datasource.username")).password(tenantProperties.getProperty("datasource.password"));
 
-                if(properties.getType() != null) {
+                if (properties.getType() != null) {
                     dataSourceBuilder.type(properties.getType());
                 }
 
@@ -94,13 +91,9 @@ public class MultiTenantDataSourceConfiguration {
     }
 
     private DataSource defaultDataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create(this.getClass().getClassLoader())
-                .driverClassName(properties.getDriverClassName())
-                .url(properties.getUrl())
-                .username(properties.getUsername())
-                .password(properties.getPassword());
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create(this.getClass().getClassLoader()).driverClassName(properties.getDriverClassName()).url(properties.getUrl()).username(properties.getUsername()).password(properties.getPassword());
 
-        if(properties.getType() != null) {
+        if (properties.getType() != null) {
             dataSourceBuilder.type(properties.getType());
         }
 

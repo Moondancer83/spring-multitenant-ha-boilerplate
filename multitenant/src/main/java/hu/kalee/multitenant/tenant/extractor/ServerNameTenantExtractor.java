@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 import hu.kalee.multitenant.tenant.TenantContext;
 
 @Component
-@ConditionalOnProperty(
-        name = "multitenant.tenant-id-source",
-        havingValue = "servername")
+@ConditionalOnProperty(name = "multitenant.tenant-id-source", havingValue = "servername")
 public class ServerNameTenantExtractor implements TenantExtractor {
     private static final Logger LOG = LoggerFactory.getLogger(ServerNameTenantExtractor.class);
 

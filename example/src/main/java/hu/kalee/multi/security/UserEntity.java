@@ -84,9 +84,7 @@ public class UserEntity {
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_privilege",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+    @JoinTable(name = "user_privilege", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     public Collection<Privilege> getPrivileges() {
         return privileges;
     }
