@@ -5,8 +5,6 @@ server:
       timeout: 1800  # 30 minutes
   port: 9000
 spring:
-  application:
-    name: 'Multi-Tenant Boilerplate'
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/multi?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
