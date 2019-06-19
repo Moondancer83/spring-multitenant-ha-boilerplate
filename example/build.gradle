@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot'
+    id 'org.springframework.boot' version "${springBootVersion}"
     id 'java'
 }
 
@@ -18,10 +18,6 @@ configurations {
 
 repositories {
     mavenCentral()
-}
-
-ext {
-    set('springCloudVersion', "Greenwich.SR1")
 }
 
 dependencies {
