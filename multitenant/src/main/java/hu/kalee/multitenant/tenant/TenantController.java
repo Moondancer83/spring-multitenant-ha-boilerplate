@@ -1,12 +1,14 @@
-package hu.kalee.multi.config;
+package hu.kalee.multitenant.tenant;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RefreshScope
+import hu.kalee.multitenant.tenant.property.TenantInfo;
+
+@ConditionalOnMissingClass("org.springframework.cloud.context.config.annotation.RefreshScope")
 @RestController
 @RequestMapping("/tenants")
 public class TenantController {

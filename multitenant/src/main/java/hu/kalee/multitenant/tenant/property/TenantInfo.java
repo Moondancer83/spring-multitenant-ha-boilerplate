@@ -1,16 +1,8 @@
-package hu.kalee.multi.config;
+package hu.kalee.multitenant.tenant.property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
-
-@RefreshScope(proxyMode = ScopedProxyMode.NO)
-@Component
-@ConfigurationProperties(prefix = "multi")
 public class TenantInfo {
     private List<Tenant> tenants = new ArrayList<>();
 

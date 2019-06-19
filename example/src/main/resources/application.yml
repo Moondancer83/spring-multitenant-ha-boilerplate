@@ -26,3 +26,14 @@ management:
 
 multitenant:
   tenant-id-source: servername
+  tenants:
+    - name: terrible-swan-17
+      datasource:
+        url: jdbc:mysql://localhost:3306/multi_1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: root
+        password: root
+    - name: terrible-swan-23
+      datasource:
+        url: jdbc:mysql://localhost:3306/multi_2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: root
+        password: root

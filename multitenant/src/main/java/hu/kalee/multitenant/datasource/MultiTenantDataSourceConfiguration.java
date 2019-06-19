@@ -1,12 +1,7 @@
 package hu.kalee.multitenant.datasource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -15,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+
+import hu.kalee.multitenant.tenant.property.PropertyFileResolver;
+import hu.kalee.multitenant.tenant.property.TenantInfo;
 
 public class MultiTenantDataSourceConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(MultiTenantDataSourceConfiguration.class);
@@ -28,48 +25,44 @@ public class MultiTenantDataSourceConfiguration {
     @Autowired
     private DataSourceProperties properties;
 
+    @Autowired
+    private PropertyFileResolver propertyFileResolver;
+
     /**
      * Defines the data source for the application
      *
      * @return datasource
      */
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         LOG.info("multitenant.tenant-id-source: {}", tenantIdSource);
 
-        File[] files = Paths.get(ClassLoader.getSystemResource("tenants").getPath()).toFile().listFiles();
-        Map<Object, Object> resolvedDataSources = new HashMap<>();
+        TenantInfo tenantInfo;
 
-        if (files.length == 0) {
-            LOG.warn("No configuration for multiple tenants.");
+        try {
+            tenantInfo = propertyFileResolver.getTenantInfo();
+        } catch (RuntimeException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
         }
 
-        for (File propertyFile : files) {
-            Properties tenantProperties = new Properties();
+        Map<Object, Object> resolvedDataSources = new HashMap<>();
+
+        for (TenantInfo.Tenant tenant : tenantInfo.getTenants()) {
             DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create(this.getClass().getClassLoader());
 
-            try {
-                tenantProperties.load(new FileInputStream(propertyFile));
+            String tenantId = tenant.getName();
 
-                String tenantId = tenantProperties.getProperty("name");
+            // Assumption: The tenant database uses the same driver class
+            // as the default database that you configure.
+            dataSourceBuilder.driverClassName(properties.getDriverClassName()).url(tenant.getDatasource().getUrl()).username(tenant.getDatasource().getUsername()).password(tenant.getDatasource().getPassword());
 
-                // Assumption: The tenant database uses the same driver class
-                // as the default database that you configure.
-                dataSourceBuilder.driverClassName(properties.getDriverClassName()).url(tenantProperties.getProperty("datasource.url")).username(tenantProperties.getProperty("datasource.username")).password(tenantProperties.getProperty("datasource.password"));
-
-                if (properties.getType() != null) {
-                    dataSourceBuilder.type(properties.getType());
-                }
-
-                final DataSource dataSource = dataSourceBuilder.build();
-                resolvedDataSources.put(tenantId, dataSource);
-            } catch (IOException e) {
-                // Ooops, tenant could not be loaded. This is bad.
-                // Stop the application!
-                LOG.error(e.getMessage(), e);
-                return null;
+            if (properties.getType() != null) {
+                dataSourceBuilder.type(properties.getType());
             }
+
+            final DataSource dataSource = dataSourceBuilder.build();
+            resolvedDataSources.put(tenantId, dataSource);
         }
 
         // Create the final multi-tenant source.
