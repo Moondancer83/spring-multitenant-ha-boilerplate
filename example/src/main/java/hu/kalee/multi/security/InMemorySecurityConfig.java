@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Profile("security-embedded")
 @EnableWebSecurity
-public class SecurityConfig {
+public class InMemorySecurityConfig {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

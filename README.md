@@ -16,7 +16,8 @@ This project is just a tool for creating modules that gives real value for devel
  - [ ] by using separate physical database per tenant
 #### Managing configuration externally
  - [x] Configuration is not packaged together with code *
- - [ ] Configuration is updating without the need of application restart *
+ - [x] Configuration is updating without the need of application restart *
+ - [ ] Tenant configuration if used from externalized config *
 
 ### Highly Available (HA)
 - [ ] Persist session data *
