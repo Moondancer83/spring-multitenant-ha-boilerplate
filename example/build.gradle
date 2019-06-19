@@ -25,6 +25,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
     implementation project(':multitenant')
+    implementation project(':multitenant-cloud-config')
 }
 
 dependencyManagement {

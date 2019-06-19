@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import hu.kalee.multitenant.datasource.MultiTenantDataSourceConfiguration;
 
 @Configuration
-@ComponentScan("hu.kalee.multitenant.tenant")
+@ComponentScan("hu.kalee.multitenant")
 @Import(MultiTenantDataSourceConfiguration.class)
 public class MultiTenancyConfiguration {
 }

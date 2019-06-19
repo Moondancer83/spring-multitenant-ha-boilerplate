@@ -5,4 +5,5 @@ pluginManagement {
 }
 rootProject.name = 'multi'
 include 'multitenant'
+include 'multitenant-cloud-config'
 include 'example'
