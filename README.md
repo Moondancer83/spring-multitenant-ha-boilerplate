@@ -15,7 +15,7 @@ This project is just a tool for creating modules that gives real value for devel
  - [x] by using separate DB schema per tenant *
  - [ ] by using separate physical database per tenant
 #### Managing configuration externally
- - [ ] Configuration is not packaged together with code
+ - [x] Configuration is not packaged together with code *
  - [ ] Configuration is updating without the need of application restart *
 
 ### Highly Available (HA)
