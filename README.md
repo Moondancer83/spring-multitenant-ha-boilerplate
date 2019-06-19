@@ -17,7 +17,7 @@ This project is just a tool for creating modules that gives real value for devel
 #### Managing configuration externally
  - [x] Configuration is not packaged together with code *
  - [x] Configuration is updating without the need of application restart *
- - [ ] Tenant configuration if used from externalized config *
+ - [x] Tenant configuration if used from externalized config *
 
 ### Highly Available (HA)
 - [ ] Persist session data *
