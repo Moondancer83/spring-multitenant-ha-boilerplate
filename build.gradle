@@ -1,4 +1,0 @@
-ext {
-    set('springBootVersion', '2.1.5.RELEASE')
-    set('springCloudVersion', "Greenwich.SR1")
-}
